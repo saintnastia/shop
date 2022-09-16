@@ -390,35 +390,35 @@ const createUpdateCart = async (id, quantity = 1) => {
 }
 
 const main = () => {
-    const location = window.location.pathname;
-    if (location === "/shop/all-products.html"){
+    const location = window.location.pathname.split('/').at(-1);
+    if (location === "all-products.html"){
         maskLoader();
         catalogProductsRender(urlPhone, urlLaptop, sortedRating);
     }
-    if (location === "/shop/smartphones.html"){
+    if (location === "smartphones.html"){
         maskLoader();
         catalogProductsRender(urlPhone, undefined, sortedRating);
     }
-    if (location === "/shop/product.html"){
+    if (location === "product.html"){
         const query = new URLSearchParams(window.location.search);
         const productId = query.get('id');
         if(productId){
             productCardHTML(`https://dummyjson.com/products/${productId}`);
             dataRelatedProducts(`https://dummyjson.com/products/${productId}`);
         }else{
-            window.open(`${window.location.origin}/shop/index.html`, '_self');
+            window.open(`${window.location.pathname.split('/').slice(0, -1).join('/')}/index.html`, '_self');
         }
     }
-    if (location === "/shop/laptops.html"){
+    if (location === "laptops.html"){
         maskLoader();
         catalogProductsRender(urlLaptop,undefined, sortedRating)
     }
-    if (location === "/shop/cart.html"){
+    if (location === "cart.html"){
         listProductCartHTML();
         refreshDiscountedTotal();
         clearStorage();
     }
-    if (location === "/shop/index.html"){
+    if (location === "index.html"){
         maskLoader();
         catalogProductsRender(urlPhone, urlLaptop, sortedRating, 9);
     }
